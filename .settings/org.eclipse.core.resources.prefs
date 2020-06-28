@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//sgpa/auth_local/util/util.py=utf-8
+encoding//sgpa/basico/menu.py=utf-8
+encoding//sgpa/passagem/model/aeroporto.py=utf-8
+encoding//sgpa/passagem/model/cota.py=utf-8
+encoding//sgpa/passagem/model/cotacao.py=utf-8
+encoding//sgpa/passagem/model/passageiro.py=utf-8
+encoding//sgpa/passagem/model/passageiro_passagem.py=utf-8
+encoding//sgpa/passagem/model/rota.py=utf-8
+encoding//sgpa/passagem/model/trecho.py=utf-8
