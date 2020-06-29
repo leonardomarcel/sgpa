@@ -1,0 +1,139 @@
+{% load staticfiles %}
+<form  method="POST">
+   	{% csrf_token %}
+	
+	<div class="media-left">
+		<span class="media-object">
+	        {% if request.user.foto %}
+				<img src="/media/{{ request.user.foto }}" class="foto-perfil img-thumbnail img-circle" alt="Foto do usuario"/>
+					
+			{% else %}
+				<img src="{% static 'iml/img/user.jpg' %}" class="foto-perfil img-thumbnail img-circle" alt="Foto do usuario"/>
+			{% endif %}
+		</span>
+    				
+		<div class="div-alterar-foto">
+			<label class="btn btn-primary outline btn-sm">
+				<i class="fa fa-camera fa-lg"></i>&nbsp; Alterar Foto
+				<input class="hide" type="file" id="id_foto" name="foto" />
+			</label>
+       	</div>
+	</div>
+	
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label for="cpf" class="control-label">CPF</label>
+					 {{ perfil_usuario_form.cpf }}
+					 
+					 {% if perfil_usuario_form.cpf.errors %}
+						<label class="control-label errors" for="cpf">
+							<i class="fa fa-times-circle-o"></i>
+		              		{{ perfil_usuario_form.cpf.errors.as_text }}
+		            	</label>
+					{% endif %}
+			
+				</div>
+			</div>
+			
+			<div class="col-sm-9">
+				<div class="form-group">
+					<label for="nome" class="control-label">Nome</label>
+					 {{ perfil_usuario_form.nome }}
+					 
+					 {% if perfil_usuario_form.nome.errors %}
+						<label class="control-label errors" for="nome">
+							<i class="fa fa-times-circle-o"></i>
+		              		{{ perfil_usuario_form.nome.errors.as_text }}
+		            	</label>
+					{% endif %}
+			
+				</div>
+			</div>
+		</div>
+       				 
+ 	 	<div class="row">
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label for="telefone" class="control-label">Telefone</label>
+					 {{ perfil_usuario_form.telefone }}
+					 
+					 {% if perfil_usuario_form.telefone.errors %}
+						<label class="control-label errors" for="telefone">
+							<i class="fa fa-times-circle-o"></i>
+		              		{{ perfil_usuario_form.telefone.errors.as_text }}
+		            	</label>
+					{% endif %}
+			
+				</div>
+			</div>
+			
+			<div class="col-sm-9">
+				<div class="form-group">
+					<label for="email" class="control-label">E-mail</label>
+					 {{ perfil_usuario_form.email }}
+					 
+					 {% if perfil_usuario_form.email.errors %}
+						<label class="control-label errors" for="email">
+							<i class="fa fa-times-circle-o"></i>
+		              		{{ perfil_usuario_form.email.errors.as_text }}
+		            	</label>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="panel-body">
+		{% if user.is_administrador %}
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label for="orgao" class="control-label">Órgão</label>
+					{{ perfil_usuario_form.orgao }}
+					
+					{% if perfil_usuario_form.orgao.errors %}
+						<label class="control-label errors" for="orgao">
+							<i class="fa fa-times-circle-o"></i>
+							{{ perfil_usuario_form.orgao.errors.as_text }}
+						</label>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group">
+                   <label for="id_grupos" class="control-label">Grupos</label>
+                    	{{ perfil_usuario_form.groups }}
+					{% if perfil_usuario_form.groups.errors %}
+						<label class="control-label errors" for="id_grupos">
+							<i class="fa fa-times-circle-o"></i>
+		              		{{ perfil_usuario_form.groups.errors.as_text }}
+		            	</label>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	
+	{% else %}	
+		<div class="hide">
+			<input type="hidden" name="orgao" id="id_orgao" value="{{ user.orgao.id }}"/>
+			
+			{% for group in user.groups.all %}	
+				<input type="hidden" name="groups" id="id_groups" value="{{ group.id }}"/>
+			{% endfor %}
+		</div>
+	{% endif %}	
+
+	<div class="row">
+		<div class="col-sm-12">
+	  		<div class="form-group">
+				<button type="submit" name="save_perfil" class="pull-right btn btn-success">Salvar</button>
+	  		</div>
+		</div>
+	</div>
+</div>
+</form>

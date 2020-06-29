@@ -1,0 +1,1 @@
+#from auth_local.base.models.usuario_base import UsuarioBase 

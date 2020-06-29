@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load staticfiles input_error %}
+
+{% block pagetitle %}
+    Relatório Analítico de Passagens Emitidas por Período
+{% endblock pagetitle %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="post" target="_blank">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        
+                        <div class="form-group col-sm-12">
+                            <label for="id_nome" class="control-label required">Período final</label>
+                            {{passagem_periodo_form.data_inicio}}
+                            {% show_input_error passagem_periodo_form.data_inicio %}
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label for="id_nome" class="control-label required">Perído inicial</label>
+                            {{passagem_periodo_form.data_termino}}
+                            {% show_input_error passagem_periodo_form.data_termino %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12">
+                            <label for="id_iata" class="control-label required">Orgão</label>
+                            {{passagem_periodo_form.orgao}}
+                            {% show_input_error passagem_periodo_form.orgao %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12">
+                            <label for="id_icao" class="control-label required">Agência de viagem</label>
+                            {{passagem_periodo_form.agencia_viagem}}
+                            {% show_input_error passagem_periodo_form.agencia_viagem %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12">
+                            <label for="id_site" class="control-label required">Cia aérea</label>
+                            {{passagem_periodo_form.cia_aerea}}
+                            {% show_input_error passagem_periodo_form.cia_aerea %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12">
+                            <label for="id_site" class="control-label required">Motivo da viagem</label>
+                            {{passagem_periodo_form.motivo}}
+                            {% show_input_error passagem_periodo_form.motivo %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12">
+                            <label for="id_site" class="control-label required">passageiro</label>
+                            {{passagem_periodo_form.passageiro}}
+                            {% show_input_error passagem_periodo_form.passageiro %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12">
+                            <label for="id_site" class="control-label required">Urgente</label>
+                            {{passagem_periodo_form.urgente}}
+                            {% show_input_error passagem_periodo_form.urgente %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 mt-2">
+                               <button type="button" class="pull-left btn btn-outline-primary" onclick="location.href='{% url 'passagem:agencias_viagem' %}'">
+                                   <i></i>&nbsp;Voltar
+                               </button>									
+                                <button type="submit" class="btn btn-outline-success float-right">
+                                    <i class="far fa-save"></i>&nbsp;Gerar
+                                </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

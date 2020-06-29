@@ -1,0 +1,14 @@
+<div class="btn-group float-right">
+    <button class="btn btn-outline-dark btn-sm dropdown-toggle btn-menu-user" data-toggle="dropdown">
+        
+       <span class="badge badge-pill badge-light">{{ user.get_orgao_gestor.sigla }}</span>&nbsp;
+       <span class="text-white">
+       	{{ user.get_short_name }}
+       </span>
+    </button>
+    <div class="dropdown-menu dropdown-menu-left">
+        <a class="dropdown-item" href="{% url 'auth_local:meu_perfil' %}"><i class="fas fa-user-edit"></i>&nbsp;Meu Perfil</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Sair</a>
+    </div>
+</div>

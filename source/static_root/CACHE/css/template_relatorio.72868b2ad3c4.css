@@ -1,0 +1,12 @@
+/* line 1, static/css/template_relatorio.scss */
+body {
+  background: #fff; }
+
+/* line 5, static/css/template_relatorio.scss */
+#logo-governo {
+  max-width: 100%; }
+
+/* line 10, static/css/template_relatorio.scss */
+.header {
+  margin-top: 12%;
+  margin-left: -10%; }

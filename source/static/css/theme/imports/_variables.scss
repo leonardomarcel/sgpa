@@ -1,0 +1,18 @@
+
+// modificando variáveis do bootstrap
+$font-family-sans-serif: 'Poppins', sans-serif;
+$font-size-base: .9rem;
+$pagination-active-bg: #dc3545;
+$pagination-color: #dc3545;
+
+$warning: #FF8F00;
+$secondary: #8E24AA;
+$sala-controle: #1f8ef1;
+
+$sizes: () !default;
+$sizes: map-merge((
+  25: 20%,
+  50: 50%,
+  75: 75%,
+  100: 100%
+), $sizes);

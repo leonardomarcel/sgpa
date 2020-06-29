@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load pagination_tags bootstrap_pagination staticfiles %}
+{% load i18n %}
+{% block pagetitle %}
+	Lista de Solicitações de Passagem
+{% endblock pagetitle %}
+
+{% block content %}
+
+   	<div class="card mt-3">
+   		<div class="card-body">
+      			<div class="row">
+					{% if user.is_gestor_passagem %}
+						<div class="col-sm-12">
+							<a href="{% url 'passagem:solicitacao_passagem_add'%} " class="btn btn-outline-danger mb-2 float-right" data-toggle="tooltip" title="Cadastrar">
+								<i class="fas fa-plus fa-xs"></i> Cadastrar
+							</a>
+						</div>
+					{% endif %}
+				</div>
+	   			<form class="" action="" method="">
+					{% csrf_token %}
+	        			<div class="row">
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label for="id_tipo_manifestacao">Protocolo</label>
+									{{ buscar_form.codigo }}
+								</div>
+							</div>   
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label for="id_tipo_manifestacao">Início</label>
+									{{ buscar_form.inicio }}
+								</div>
+							</div>
+	       					<div class="col-sm-2">
+	        					<div class="form-group">
+	        						<label for="id_tipo_manifestacao">Termino</label>
+									{{ buscar_form.termino }}
+	        					</div>
+	       					</div>
+	       					<div class="col-sm-2">
+	        					<div class="form-group">
+	        						<label for="id_tipo_manifestacao">Status</label>
+									{{ buscar_form.status }}
+	        					</div>
+							</div>
+	       					<div class="col-sm-2">
+	       						<div class="form-group">
+	       							<label for="id_tipo_manifestacao" style="color: #fff">-</label><br/>
+		       						<button type="submit" class="btn btn-outline-danger float-right">
+		                      			<i class="fas fa-search fa-xs"></i>&nbsp;Buscar
+		                  			</button>
+	                 			</div>
+	                 		</div>
+	   					</div>
+	       			</form>
+    		</div>
+     		
+     		{% if solicitacoes_passagem %} 
+	     		<div class="table-responsive">
+		      		<table class="table">
+		        		<thead class="thead-light">
+			          		<tr>
+								<th scope="col"># Protocolo</th>
+			            		<th scope="col">Data</th>
+			            		<th scope="col">Usuário</th>
+								<th scope="col">Motivo</th>
+								<th class="text-center" scope="col">Status</th>
+								{% if user.is_gestor_amgesp %}
+			            			<th scope="col">Órgão</th>
+								{% endif %}
+								<th scope="col"></th>
+			            		<th scope="col"></th> 
+			            		
+			          		</tr>
+		        		</thead>
+			        	<tbody>
+			        		{% for solicitacoes_passagem in solicitacoes_passagem_paginator %}
+			          	  		<tr>
+									<td><b>#{{ solicitacoes_passagem.id }}</b></td>
+									<td>{{ solicitacoes_passagem.data|date:'d/m/Y' }}</td>
+				        			<td>{{ solicitacoes_passagem.usuario }} </td>
+									<td>{{ solicitacoes_passagem.motivo }} </td>
+									<td>
+										{% if solicitacoes_passagem.status == "COM PENDENCIA" %} 
+										<a href="#"  id="solicitacao_pendente" data-toggle="modal"  data-target="exampleModalCenter">
+         								<span class="badge badge-danger">{{ solicitacoes_passagem.status }}</span> {% endif %}{% if solicitacoes_passagem.status == "ABERTA" %}
+										<span class="badge badge-warning">{{ solicitacoes_passagem.status }}</span> {% endif %}{% if solicitacoes_passagem.status == "AUTORIZADA" %}
+										<span class="badge badge-success">{{ solicitacoes_passagem.status }}{% endif %}</span></a>
+									</td>
+									{% if user.is_gestor_amgesp %}
+			        					<td> {{ solicitacoes_passagem.orgao.sigla }}</td>
+									{% endif %}
+									<td>
+										{% for passagem in solicitacoes_passagem.passagens.all %}
+											{% if passagem.tem_passageiro_passagem %}
+												<a href="{% url 'passagem:solicitacao_passagem_passagens' solicitacoes_passagem.id %}" title="Passagens Emitidas">
+													<i class="fa fa-plane" aria-hidden="true" style="color: dodgerblue;"></i>
+												</a>
+											{% endif %}
+										{% endfor %}
+									</td>
+			        				<td>
+				        				{% if solicitacoes_passagem.status == 'ABERTA' and user.is_gestor_passagem %}
+				        					<a class="btn btn-outline-danger" href="{% url 'passagem:solicitacao_passagem_update' solicitacoes_passagem.id %}" data-toggle="tooltip" title="Editar">
+		                                    	<i class="fas fa-pencil-alt"></i>
+											</a>
+										{% endif %}
+										{% if solicitacoes_passagem.status == 'COM PENDENCIA' and user.is_gestor_passagem %}
+											<a class="btn btn-outline-danger" href="{% url 'passagem:solicitacao_passagem_update' solicitacoes_passagem.id %}" data-toggle="tooltip" title="Editar">
+		                                    	<i class="fas fa-pencil-alt"></i>
+											</a>
+										{% endif %}
+										{% if solicitacoes_passagem.status == 'AUTORIZADA' and user.is_agencia_viagem %}
+											<a class="btn btn-outline-danger" href="{% url 'passagem:acompanhamento_solicitacao_passagem' solicitacoes_passagem.id %}" data-toggle="tooltip" title="Emitir Passagem">
+		                                    	<i class="fas fa-pencil-alt"></i>
+											</a>
+										{% endif %}
+										{% if user.is_gestor_amgesp %}
+											<a class="btn btn-outline-danger" href="{% url 'passagem:acompanhamento_solicitacao_passagem' solicitacoes_passagem.id %}" data-toggle="tooltip" title="Avaliar">
+		                                    	<i class="fas fa-pencil-alt"></i>
+											</a>
+										{% endif %}
+			        				</td>
+									
+				          		</tr>
+			        		{% endfor %}
+			        	</tbody>
+		      		</table>
+	      		</div>
+	           	{% include './solicitacao_passagem_paginator.html' %}
+      		{% endif %}
+    	</div>
+{% endblock content %}
+
+{% block extrajs %}
+	<script src="{% static 'js/painel/usuario/listagem.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,55 @@
+<form name="save_senha" action="" method="POST" enctype="multipart/form-data" role="senha_form">
+	{% csrf_token %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="senha_atual" class="control-label">Senha Atual <span class="requerido">*</span></label>
+				{{ senha_form.senha_atual }}
+				
+				{% if senha_form.senha_atual.errors %}
+					<label class="control-label errors" for="nome">
+						<i class="fa fa-times-circle-o"></i> {{ senha_form.senha_atual.errors.as_text }}
+				    </label>
+            	{% endif %}
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="nova_senha" class="control-label">Nova Senha<span class="requerido">*</span></label>
+				{{ senha_form.nova_senha }}
+				
+				{% if senha_form.nova_senha.errors %}
+					<label class="control-label errors" for="sigla">
+						<i class="fa fa-times-circle-o"></i> {{ senha_form.nova_senha.errors.as_text }}
+            		</label>
+           		{% endif %}
+			</div>
+		</div>
+ 	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="confirmar_senha" class="control-label">Confirmar Nova Senha <span class="requerido">*</span></label>
+				{{ senha_form.confirmar_senha }}
+				
+				{% if senha_form.confirmar_senha.errors %}
+					<label class="control-label errors" for="confirmar_senha">
+						<i class="fa fa-times-circle-o"></i> {{ senha_form.confirmar_senha.errors.as_text }}
+					            	</label>
+            	{% endif %}
+			</div>
+		</div>
+	</div>
+		
+	<div class="row">
+		<div class="col-sm-12">
+	  		<div class="form-group">
+				<button type="submit" name="save_senha" class="pull-right btn btn-success">Salvar</button>
+	  		</div>
+		</div>
+	</div>
+</form>

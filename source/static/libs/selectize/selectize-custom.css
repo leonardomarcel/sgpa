@@ -1,0 +1,39 @@
+@CHARSET "ISO-8859-1";
+
+.selectize-input .active {
+	background: #337ab7; 
+	color: #fff;	
+}
+
+.selectize-dropdown-content .active {
+	background: #337ab7; 
+	color: #fff;
+}
+
+.selectize-control.multi .selectize-input > div {
+	background: #AD1457 !important; 
+	color: #fff !important;
+}
+
+.selectize-dropdown .by::before {
+	content: 'by ';
+}
+
+.selectize-dropdown .name {
+	font-weight: bold;
+	margin-right: 5px;
+}
+
+.selectize-dropdown .title {
+	display: block;
+}
+
+.selectize-dropdown .description {
+	font-size: 12px;
+	display: block;
+	opacity: 0.5;
+	white-space: nowrap;
+	width: 100%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
