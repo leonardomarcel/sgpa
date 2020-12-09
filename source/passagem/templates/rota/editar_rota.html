@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load staticfiles input_error %}
+
+{% block pagetitle %}
+    Cadastro de Rota
+{% endblock pagetitle %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label for="id_origem" class="control-label required">Origem</label>
+                            {{rota_form.origem}}
+                            {% show_input_error rota_form.origem %}
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="id_nome" class="control-label required">Destino</label>
+                            {{rota_form.destino}}
+                            {% show_input_error rota_form.destino %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 mt-2">
+                               <button type="button" class="pull-left btn btn-outline-primary" onclick="location.href='{% url 'passagem:rotas' %}'">
+                                   <i></i>&nbsp;Voltar
+                               </button>									
+                                <button type="submit" class="btn btn-outline-success float-right">
+                                    <i class="far fa-save"></i>&nbsp;Salvar
+                                </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

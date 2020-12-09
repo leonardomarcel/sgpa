@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load staticfiles input_error %}
+{% block pagetitle %}
+	Cadastro de cotação - De ( {{passagem.rota.origem.iata}} ) para ( {{passagem.rota.destino.iata}} )
+{% endblock pagetitle %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+	        	<div class="card-body">
+	           		<form action="" method="post">
+	           			{% csrf_token %}
+	                	<div class="form-row">
+	                   		<div class="form-group col-sm-2">
+								<label for="id_cpf" class="control-label required">Num Voo:</label>
+								{{ cotacao_form.numero_voo }}
+								{% show_input_error cotacao_form.numero_voo %}
+	                        </div>
+							<div class="form-group col-sm-2">
+								<label for="id_cpf" class="control-label">Companhia</label>
+								{{ cotacao_form.companhia }}
+								{% show_input_error cotacao_form.companhia %}
+							 </div>
+	                        
+	                        <div class="form-group col-sm-4">
+	                        	<label for="id_nome" class="control-label required">Valor</label>
+								{{ cotacao_form.valor }}
+								{% show_input_error cotacao_form.valor %}
+							</div>
+							<div class="form-group col-sm-4">
+								<label for="id_cpf" class="control-label">Data</label>
+								{{ cotacao_form.data }}
+								{% show_input_error cotacao_form.companhia %}
+							</div>
+						</div>   
+	                     <div class="form-row">
+							<div class="form-group col-sm-12 mt-2">
+								<button type="button" onclick="location.href='{% url 'passagem:acompanhamento_solicitacao_passagem' solicitacao_passagem.id %}'" class="btn btn-outline-primary">
+									<i class="far fa-save"></i>&nbsp;Voltar</button>
+	                             <button type="submit" class="btn btn-outline-success float-right">
+								 	<i class="far fa-save"></i>&nbsp;Salvar</button>
+							</div>
+	                         </div>
+	                     </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+{% endblock content %}
+
+
+

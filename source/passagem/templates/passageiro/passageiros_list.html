@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load pagination_tags bootstrap_pagination staticfiles %}
+{% load i18n %}
+{% block pagetitle %}
+	Lista de Passageiros
+{% endblock pagetitle %}
+
+{% block content %}
+
+   	<div class="card mt-3">
+   		<div class="card-body">
+      			<div class="row">
+					<div class="col-sm-12">
+			    		<a href="{% url 'passagem:passageiro_add'%} " class="btn btn-outline-danger mb-2 float-right" data-toggle="tooltip" title="Cadastrar">
+			           		<i class="fas fa-plus fa-xs"></i> Cadastrar
+			   			</a>
+		   			</div>
+				</div>
+	   			<form class="" action="" method="">
+					{% csrf_token %}
+	        			<div class="row">
+	        			<div class="col-sm-4">
+								<div class="form-group">
+									<label for="id_cpf">CPF</label>
+									{{ buscar_form.cpf }}
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="id_nome">Nome</label>
+									{{ buscar_form.nome }}
+								</div>
+							</div>
+	       					<div class="col-sm-2">
+	       						<div class="form-group">
+	       							<label for="id_tipo_manifestacao" style="color: #fff">-</label><br/>
+		       						<button type="submit" class="btn btn-outline-danger float-right">
+		                      			<i class="fas fa-search fa-xs"></i>&nbsp;Buscar
+		                  			</button>
+	                 			</div>
+	                 		</div>
+	   					</div>
+	       			</form>
+    		</div>
+     		
+     		{% if passageiros %} 
+	     		<div class="table-responsive">
+		      		<table class="table">
+		        		<thead class="thead-light">
+			          		<tr>
+			            		<th scope="col">CPF</th>
+			            		<th scope="col">Nome</th>
+								<th scope="col">Data Nascimento</th>
+			            		<th scope="col">#</th> 
+			            		
+			          		</tr>
+		        		</thead>
+			        	<tbody>
+			        		{% for passageiro in passageiro_paginator %}
+			          	  		<tr>
+			          	   			<th scope="row">
+										{{ passageiro.cpf }}
+									</th>
+				        			<td>{{ passageiro.nome }} </td>
+									<td>{{ passageiro.data_nascimento|date:'d/m/Y' }} </td>
+									{% if user.is_gestor_amgesp %}
+										<td>
+											<a class="btn btn-outline-danger" href="{% url 'passagem:passageiro_update' passageiro.id %}" data-toggle="tooltip" title="Editar">
+		                                    	<i class="fas fa-pencil-alt"></i>
+											</a>
+										</td>
+									{% endif %}
+			        				</td>
+									
+				          		</tr>
+			        		{% endfor %}
+			        	</tbody>
+		      		</table>
+	      		</div>
+	           	{% include './passageiro_paginator.html' %}
+      		{% endif %}
+    	</div>
+{% endblock content %}
+
+{% block extrajs %}
+	<script src="{% static 'js/painel/usuario/listagem.js' %}"></script>
+{% endblock %}

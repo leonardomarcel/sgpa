@@ -1,0 +1,17 @@
+{% load bootstrap_pagination %}
+<div class="card-body">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text-center">
+				Mostrando {{ cota_paginator.start_index }} até {{ passageiro_paginator.end_index }} de 
+				{{ cota_paginator.paginator.count }} registros.
+			</div>
+			
+			<nav aria-label="navigation" class="mt-2">
+				<ul class="pagination float-right">
+					{% bootstrap_paginate cota_paginator show_first_last="true" url_param_name="cotas_page" %}
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>

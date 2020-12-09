@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pagetitle %}
+	Formulário de solicitacao de Passagem
+{% endblock pagetitle %}
+{% load staticfiles input_error %}
+
+<style type="text/css">
+@media (max-width: 991px) {
+	.container {
+		width:100% !important;
+	}
+}
+
+</style>
+
+
+
+{% block content %}
+
+{% block extracss %}
+	<link rel="stylesheet" href="{% static 'css/passagem/solicitacao_passagem.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/passagem/timeline_acompanhamento.css' %}" type="text/css">
+
+{%  endblock extracss %}
+{% block extrajs %}
+	<script type="text/javascript" src="{% static 'js/passagem/solicitacao_passagem.js' %}"></script>
+	
+{% endblock %}
+	
+{% if solicitacao_passagem_rota_form.non_field_errors %}
+		<div>
+		    	<div id="messages" class="container alert alert-danger alert-dismissible" role="alert">
+			        <button type="button" class="close" data-dismiss="alert">
+			            <span aria-hidden="true">&times;</span>
+			            <span class="sr-only">Fechar</span>
+			        </button>
+		        	<ul class="list-unstyled">
+				        <li>
+				        	<i class="fa fa-lg fa-exclamation-circle"></i>
+				        	{% for error in solicitacao_passagem_rota_form.non_field_errors %}
+					        {{ error|safe }}
+					        {% endfor %}
+				        </li>
+				    </ul>
+	    	</div> 
+	</div>
+	{% endif %}
+	<div class="row">
+		<div   {% if acompanhamentos %}   class="col-sm-8" {% else %}  class="col-sm-12"   {% endif %}>
+			<div class="card">
+				<ul class="nav nav-pills">
+					  <li class="nav-item">
+					    <a class="nav-link disabled">Dados da solicitação</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link active">Trechos</a>
+					  </li>
+					 
+				</ul>
+				<div class="card-body">
+					<form action="" method="post" class="form">
+						{% csrf_token %}
+						<div id="box-rota">
+							<div class="form-row">
+								<div class="form-group col-sm-4" onchange="change(this)">
+									<label for="id_tipo" class="control-label required">Tipo</label>
+									{{solicitacao_passagem_rota_form.tipo}}
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="id_data_ida" class="control-label required">Data Ida</label>
+									{{solicitacao_passagem_rota_form.data_ida}}
+									{% show_input_error solicitacao_passagem_rota_form.data_ida %}
+									
+								</div>
+								<div class="form-group col-sm-4" id="div_volta"> 
+									<label for="id_data_volta" class="control-label required">Data Volta</label>
+									{{solicitacao_passagem_rota_form.data_volta}}
+									{% show_input_error solicitacao_passagem_rota_form.data_volta %}
+								</div>
+							</div>
+							<div class="form-row">
+								<div {% if acompanhamentos %} class="form-group col-sm-4" {% else %} class="form-group col-sm-6" {% endif %}>
+								
+									<label for="origem" class="control-label required">Origem</label>
+									{{solicitacao_passagem_rota_form.origem}}
+									{% show_input_error solicitacao_passagem_rota_form.origem %}
+								</div>
+								<div {% if acompanhamentos %} class="form-group col-sm-4" {% else %} class="form-group col-sm-6" {% endif %}>
+									<label for="id_destino" class="control-label required">Destino</label>
+									{{solicitacao_passagem_rota_form.destino}}
+									{% show_input_error solicitacao_passagem_rota_form.destino %}
+								</div>
+							</div>
+							<div class="form-row">
+								<div {% if acompanhamentos %} class="form-group col-sm-4" {% else %} class="form-group col-sm-12" {% endif %}>
+									<label for="passageiros" class="control-label required">Passageiros</label>
+									{{solicitacao_passagem_rota_form.passageiros}}
+									{% show_input_error solicitacao_passagem_rota_form.passageiros %}
+								</div>
+								
+							
+								 
+							</div>
+							<div class="form-row">
+								<button  type="submit" class="btn btn-success" name="btn_cadastrar">
+										<i class=".fa-arrow-left"></i>&nbsp;Cadastrar Trecho
+								</button>		
+							</div>
+						  </div>
+						  <div class="trechos">
+						  		{% for passagem in passagens %}
+						  		<div class="box-trecho">
+						  			<div class="ico-lixo"><a href="{% url 'passagem:deletar_trecho' passagem.id solicitacao_passagem.id %}"><i class="fa fa-trash" style="color:red" title="Deletar" aria-hidden="true"></i></a></div>
+						  			<li class="lista-trecho">Trecho:</li>
+					  				<li>{{passagem.data_viagem|date:"d/m/y"}}&nbsp;&nbsp;&nbsp;  <b>Origem:</b> {{passagem.rota.origem}}&nbsp;&nbsp;&nbsp;<b>Destino:</b> {{passagem.rota.destino}}</li></br>
+			  					    {% if passagem.passageiros %}
+			  					    <b>Passageiros:</b>
+				  					{% for passageiro in passagem.passageiros.all %}
+				  						<li>{{passageiro.cpf}} - {{passageiro.nome}}</li>
+				  					{% endfor %}
+					  				{% endif %}
+						  		 </div>	
+						  		{% endfor %} 
+						  </div>
+						  <div class="form-row">
+	                         <div class="form-group col-sm-12 mt-2">
+									<button onclick="location.href='{% url 'passagem:solicitacao_passagem_update' solicitacao_passagem.id %}'" type="button" class="btn btn-outline-primary">
+										<i></i>&nbsp;Voltar
+									</button>									
+		                            <button type="submit" class="btn btn-outline-success float-right" name="btn_concluir">
+		                             	<i class="far fa-save"></i>&nbsp;Concluir
+		                            </button>
+	                         </div>
+						 </div>
+						 {% include 'modal/adicionar_justificativa_solicitacao_fora_do_prazo.html' %}
+					</form>
+				</div>
+			</div>
+		</div>
+		{% if acompanhamentos %}
+		<div class="col-sm-4">
+			<div class="card time-line">
+				{% for acompanhamento in acompanhamentos %}
+				<ul> 
+					<li> <i class="fas fa-clock" aria-hidden="true"></i> {{acompanhamento.data|date:'d-m-y h:m:s'}}{% if acompanhamento.status == "COM PENDENCIA" %} <span class="badge badge-danger"> {% else %} <span class="badge badge-success"> {% endif %}{{acompanhamento.status}}</span></li>
+					<li><i class="fas fa-user"></i> {{acompanhamento.usuario}}</li>
+					<li> <b>Acompanhamento:</b> <p style="text-align: justify;">{{acompanhamento.descricao}}<p></li>
+				 </ul>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+	{% include 'modal/adicionar_passageiro.html' %}
+
+
+{% endblock %}
+

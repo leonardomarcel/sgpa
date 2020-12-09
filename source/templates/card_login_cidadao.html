@@ -1,0 +1,69 @@
+<div class="row mb-5">
+	<div class="col-sm-6 mt-3">
+		<div class="card">
+			<div class="card-body">
+				<div class="card-title text-center">
+					<h5>Login do Cidadão</h5>
+					<hr />
+				</div>
+
+				<form method="post" action="/">
+					{% csrf_token %}
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label class="form-label required">E-mail</label> 
+								<input type="text" name="email" class="form-control" placeholder="Login (E-mail)" autocomplete="off">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label class="form-label required">Senha</label> 
+								<input type="password" name="senha" class="form-control" placeholder="Senha" autocomplete="off">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<button type="submit" class="btn btn-outline-dark float-left">Acessar</button>
+							</div>
+						</div>
+						
+						<div class="col">
+						<div class="form-group">
+							<a href="{% url 'publico_esqueceu_sua_senha' %}" class="text-dark float-right">
+								<span class="text-truncate">Esqueceu a senha?</span>
+							</a>
+						</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-6 mt-3">
+		<div class="card">
+			<div class="card-body">
+				<div class="card-title text-center">
+					<h4>Acesso à Informação</h4>
+					<hr />
+				</div>
+
+				<div class="col-sm-12 text-justify">
+					A Lei nº 13.460/2017 regulamenta a participação, proteção e defesa dos direitos dos usuários de serviços públicos. 
+					O normativo prevê também as atribuições e deveres das ouvidorias públicas, como forma de tratamento e o prazo de até 30 dias (prorrogáveis por igual período) 
+					de resposta final às denúncias, reclamações, solicitações de providências, sugestões e elogios dos cidadãos. A Lei define a ouvidoria como o canal de entrada das manifestações.  
+					É um espaços de controle e participação social entre sociedade e Estado, com aplicabilidade na administração pública direta e indireta da União, dos Estados, do Distrito Federal e dos Municípios.
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

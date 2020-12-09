@@ -1,0 +1,257 @@
+// customização de tema
+@import 'imports/fonts';
+@import 'imports/variables';
+@import 'imports/mixins';
+
+// source do bootstrap
+@import '../../libs/bootstrap/scss/bootstrap';
+
+// css modularizado do app
+@import 'menu';
+
+// css geral do app
+body {
+    background-color: $gray-100;
+}
+
+.page-title {
+
+    //background-color: white;
+    background: #014286;
+    color: #fff;
+    min-height: 60px;
+    
+    max-height: 60px;
+    box-shadow: 0 2px 10px 0 rgba(99, 99, 99, 0.1), 0 2px 49px 0 rgba(0, 0, 0, 0.05);
+    
+    h1 {
+        font-size: 1.2rem;
+        padding-top: 1.15rem;
+        padding-left: 0.3rem;
+
+    }
+
+    #toggleMenu {
+        cursor: pointer;
+    }
+}
+
+.app-title {
+    //background: $red url('../img/bg.png');
+    background: #01579B;
+    width: 100%;
+    padding: 10px;
+    min-height: 60px;
+    max-height: 60px;
+    font-weight: bold;
+    text-align: center;
+
+    a {
+        color: $gray-200;
+        font-size: 0.9rem;
+        text-decoration: none;
+    }
+}
+
+.nav-publico {
+    //background: url('http://static.itec.al.gov.br/templates/img/bg1.png');
+    background: #014286;
+    padding: 15px;
+    height: 65px;
+    max-height: 65px;
+
+    a {
+        color: $gray-200;
+        font-size: 1rem;
+    }
+}
+
+.menu-publico {
+    background: $gray-100;
+    border-bottom: 1px solid $gray-200;
+
+    .nav {
+        .nav-link {
+            color: $gray-600;
+
+            &:first-child {
+                padding-left: 0px;
+            }
+
+            &:hover {
+                color: $dark;
+            }
+        }
+    }
+}
+
+	.menu-eouv {
+	
+		.navbar-brand {
+    		font-size: 0.9rem;
+		}
+		
+      	.collapse {
+      	
+      		.navbar-nav {
+      			color: $gray-600;
+      				
+      	  		.nav-link {
+            		color: $gray-600;
+            		&:hover {
+                		color: $dark;
+            		}
+        		}
+      	
+      		}
+      	}
+  	 }
+
+.content-publico {
+    margin-top: 20px;
+}
+
+.navbar {
+    padding: 0px 15px;
+
+    .dropdown-menu-right {
+        position: absolute;
+        transform: translate3d(25px, 30px, 0px);
+        top: 0px;
+        left: 0px;
+        will-change: transform;
+    }
+}
+
+.margin-content {
+    margin-left: 16.66667%;
+}
+
+.content {
+    margin-top: 95px;
+    margin-bottom: 30px;
+}
+
+.card {
+    border: 1px solid $gray-200;
+}
+
+.card-body {
+
+    form {
+        margin-bottom: 0px;
+    }
+
+    .filters {
+        padding-top: 10px;
+    }
+
+}
+
+.bg-dark, .bg-danger, .bg-info, .bg-secondary, .bg-primary, .bg-success {
+    .card-header, .card-body {
+        color: #fff;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block !important;
+}
+
+// CHARTJS
+
+.jqstooltip {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+
+// DATATABLES
+
+.dataTables_wrapper {
+    padding-bottom: 15px;
+
+    .row:first-child {
+        display: none;
+    }
+
+}
+
+.col-no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.required::after {
+   content: " *";
+   color: $red;
+}
+
+#divMensagemAtencao {
+	margin-top: 10px;
+}
+
+.icon-loading {
+	display: block; 
+	top: 200px;
+	margin: 160px auto; 
+	color: #dc3545; 
+	visibility: visible;
+}
+
+.fa-10x {
+	font-size: 10em;
+}
+
+.fa-5x {
+	font-size: 5em;
+}
+
+.icon-ajax {
+	display: block; 
+	top: 200px;
+	margin: 0px auto; 
+	color: #dc3545; 
+	visibility: visible;
+}
+
+.titulo-eouv {
+	float: left !important;
+}
+
+@media (max-width: 477px) {
+.div-governo {
+		display: none !important;
+	}
+}
+@media (max-width: 767px) {
+    .margin-content {
+        margin-left: 0%;
+    }
+    .content {
+        margin-top: 130px;
+    }
+}
+@media (max-width: 401px) {
+	.container-manifestacoes-cidadao {
+	
+		.badge-number {
+			 font-size: 10px !important;	
+		}
+	}
+	
+	.titulo-eouv {
+		margin-top: -35px;
+		float: left !important;
+		font-size: 25px;
+		
+	}
+	
+	.img-nome-alagoas {
+		display: none !important;
+	}
+}

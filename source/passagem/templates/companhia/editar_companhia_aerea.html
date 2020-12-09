@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load staticfiles input_error %}
+
+{% block pagetitle %}
+    Cadastro de Ccompanhia Aérea
+{% endblock pagetitle %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        
+                        <div class="form-group col-sm-12">
+                            <label for="id_nome" class="control-label required">Nome</label>
+                            {{companhia_aerea_form.nome}}
+                            {% show_input_error companhia_aerea_form.nome %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-4">
+                            <label for="id_iata" class="control-label required">Código IATA</label>
+                            {{companhia_aerea_form.iata}}
+                            {% show_input_error companhia_aerea_form.iata %}
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="id_icao" class="control-label required">Código ICAO</label>
+                            {{companhia_aerea_form.icao}}
+                            {% show_input_error companhia_aerea_form.icao %}
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="id_site" class="control-label required">Site</label>
+                            {{companhia_aerea_form.site}}
+                            {% show_input_error companhia_aerea_form.site %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-4">
+                            <label for="id_fone" class="control-label required">Fone</label>
+                            {{companhia_aerea_form.fone}}
+                            {% show_input_error companhia_aerea_form.fone %}
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="id_fax" class="control-label required">Fax</label>
+                            {{companhia_aerea_form.fax}}
+                            {% show_input_error companhia_aerea_form.fax %}
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="id_email" class="control-label required">E-mail</label>
+                            {{companhia_aerea_form.email}}
+                            {% show_input_error companhia_aerea_form.email %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 mt-2">
+                               <button type="button" class="pull-left btn btn-outline-primary" onclick="location.href='{% url 'passagem:companhias_aereas' %}'">
+                                   <i></i>&nbsp;Voltar
+                               </button>									
+                                <button type="submit" class="btn btn-outline-success float-right">
+                                    <i class="far fa-save"></i>&nbsp;Salvar
+                                </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

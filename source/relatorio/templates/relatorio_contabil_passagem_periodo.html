@@ -1,0 +1,44 @@
+{% extends 'template_relatorio.html' %}
+{% load static %}
+
+{% block content %}
+{% block extracss %}
+	<!--<link rel="stylesheet" href="{% static 'css/passagem/solicitacao_passagem.css' %}" type="text/css">-->
+	<!--<link rel="stylesheet" href="{% static 'css/passagem/timeline_acompanhamento.css' %}" type="text/css">-->
+{%  endblock extracss %}    
+    <h2>Relatório Contábil de Passagens Emitidas por Período</h2>
+    <h3>De {{data_inicio|date:'d/m/Y'}} até {{data_final|date:'d/m/Y'}}</h2> 
+        
+       
+	<div class="row">
+		<div class="col-sm-12">
+                {% if passagens %}
+                    {% csrf_token %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col"><b>Orgão:</b></th>
+                                    <th scope="col"><b>Quantidade de viagens:&nbsp;&nbsp;  </b></th>
+                                    <th scope="col"><b>Total em R$:&nbsp;&nbsp;</b></th>
+                                </tr>
+                            </thead>
+                            {% for total in totais %}
+                            <tbody>
+                                <tr>
+                                    <td>{{total.orgao}}</td>
+                                    <td>{{total.quantidade}}</td>
+                                    <td>{{total.total}}</td>
+                                </tr>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                    <p>Nenhuma passagem emitita nesse período.</p>
+                    {% endif %}
+				</div>
+			</div>
+		
+			
+{% endblock %}

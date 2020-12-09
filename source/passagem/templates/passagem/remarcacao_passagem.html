@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load staticfiles input_error %}
+{% block pagetitle %}
+	Remarcação de passagem - {{passageiro_passagem.passagem.data_viagem|date:"d/m/Y"}} -  De ( {{passageiro_passagem.passagem.rota.origem.iata}} ) para ( {{passageiro_passagem.passagem.rota.destino.iata}} )
+{% endblock pagetitle %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+	        	<div class="card-body">
+	           		<form action="" method="post">
+                           {% csrf_token %}
+                           <div class="form-row">
+                               <div class="form-group col-sm-6">
+                                   <b>Passageiro:</b> ({{passageiro_passagem.passageiro.cpf}})  {{passageiro_passagem.passageiro.nome}}
+                                </div>	
+                                <div class="form-group col-sm-6">
+                                    <b>Cia Aérea: </b>{{passageiro_passagem.companhia}}
+                                </div>
+                            </div>
+                        <hr>
+                        <div class="form-row">
+                            <p><b>Dados da nova passagem</b></p>
+                        </div>
+                        </br>
+	                	<div class="form-row">
+	                   		<div class="form-group col-sm-2">
+								<label for="id_cpf" class="control-label required">Num Voo:</label>
+								{{ passageiro_passagem_form.num_voo }}
+								{% show_input_error passageiro_passagem_form.num_voo %}
+							</div>
+							<div class="form-group col-sm-2">
+								<label for="id_cpf" class="control-label required">Num Bilhete:</label>
+								{{ passageiro_passagem_form.num_bilhete }}
+								{% show_input_error passageiro_passagem_form.num_bilhete %}
+                            </div>
+                            <div class="form-group col-sm-3">
+								<label for="id_cpf" class="control-label required">Multa</label>
+								{{ passageiro_passagem_form.multa }}
+								{% show_input_error passageiro_passagem_form.multa %}
+                            </div>
+                            <div class="form-group col-sm-3">
+								<label for="id_cpf" class="control-label required">Data Viagem</label>
+								{{ passageiro_passagem_form.data_viagem }}
+								{% show_input_error passageiro_passagem_form.data_viagem %}
+							</div>
+						</div>  
+						<div class="row">
+							<div class="form-group col-sm-3">
+								<label for="id_valor" class="control-label required">Valor</label>
+								{{ passageiro_passagem_form.valor }}
+								{% show_input_error passageiro_passagem_form.valor %}
+							</div>
+							<div class="form-group col-sm-3">
+								<label for="id_cpf" class="control-label required">Tarifa</label>
+								{{ passageiro_passagem_form.tarifa }}
+								{% show_input_error passageiro_passagem_form.tarifa %}
+							</div>
+                            <div class="form-group col-sm-3">
+								<label for="id_cpf" class="control-label required">Valor Embarque</label>
+								{{ passageiro_passagem_form.valor_embarque }}
+								{% show_input_error passageiro_passagem_form.valor_embarque %}
+                            </div>
+                            <div class="form-group col-sm-3">
+								<label for="id_cpf" class="control-label required">Taxa Serviço</label>
+								{{ passageiro_passagem_form.taxa_servico }}
+								{% show_input_error passageiro_passagem_form.taxa_servico %}
+                            </div>
+                            
+                        </div> 
+	                     <div class="form-row">
+							 <div class="col-sm-12">
+								<button type="button"  onclick="location.href=''" class="btn btn-outline-primary float-left">
+									<i></i>&nbsp;Voltar</button>
+	                             <button type="submit" class="btn btn-outline-success float-right">
+	                             	<i class="far fa-save"></i>&nbsp;Salvar</button>
+	                         </div>
+	                     </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+{% endblock content %}
+
+
+

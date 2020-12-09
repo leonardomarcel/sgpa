@@ -1,0 +1,93 @@
+
+{% load static %}
+{% block pagetitle %}
+	Passagens Emitidas 
+{% endblock pagetitle %}
+
+<style type="text/css">
+@media (max-width: 991px) {
+	.container {
+		width:100% !important;
+	}
+}
+</style>
+
+
+{% block content %}
+{% block extracss %}
+	<!--<link rel="stylesheet" href="{% static 'css/passagem/solicitacao_passagem.css' %}" type="text/css">-->
+	<!--<link rel="stylesheet" href="{% static 'css/passagem/timeline_acompanhamento.css' %}" type="text/css">-->
+{%  endblock extracss %}    
+
+	<div class="row">
+		<div   {% if acompanhamentos %}   class="col-sm-8" {% else %}  class="col-sm-12"   {% endif %}>
+			<div class="card">
+				<div class="card-body">
+						{% csrf_token %}
+						<div class="trechos">
+						  		<div class="box-trecho">
+                                    <div class="form-row">
+                                        <div class="col-sm-8">
+                                            <b>Passageiro:</b> {{passageiro_passagem.passageiro.cpf}} - {{passageiro_passagem.passageiro.nome}}
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-row">
+                                        <div class="col-sm-8">
+                                            <b>Nº Bilhete:&nbsp;&nbsp;  </b>{{passageiro_passagem.num_bilhete}}&nbsp;&nbsp;&nbsp;<b>Nº Voo:&nbsp;&nbsp;</b> {{passageiro_passagem.num_voo}}&nbsp;
+                                            <b>Data viagem:</b> {{passageiro_passagem.data_viagem|date:"d/m/y"}}&nbsp;&nbsp;&nbsp;</br>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-sm-12">
+                                            <b>Origem:</b> {{passageiro_passagem.passagem.rota.origem}}&nbsp;&nbsp;&nbsp;<b>Destino:</b> {{passageiro_passagem.passagem.rota.destino}}</br>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-sm-12">
+                                            <b>Valor:</b> {{passageiro_passagem.valor}}&nbsp;&nbsp;&nbsp;<b>Taxa Embarque:</b> {{passageiro_passagem.valor_embarque}}&nbsp;&nbsp;&nbsp;<b>Taxa Serviço:</b> {{passageiros_passagens.taxa_servico}}&nbsp;&nbsp;&nbsp;
+                                            <b>Tarifa:</b> {{passageiro_passagem.tarifa}}
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <p><b>Remarcações: </b></p>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col"><b>Data viagem:</b></th>
+                                                    <th scope="col"><b>Bilhete:&nbsp;&nbsp;  </b></th>
+                                                    <th scope="col"><b>Voo:&nbsp;&nbsp;</b></th>
+                                                    <th scope="col"><b>Valor:&nbsp;&nbsp;</b></th>
+                                                    <th scope="col"><b>Terifa:&nbsp;&nbsp;</b></th>
+                                                    <th scope="col"><b>Taxa embarque:&nbsp;&nbsp;</b></th>
+                                                    <th scope="col"><b>Taxa serviço:&nbsp;&nbsp;</b></th>
+                                                    <th scope="col"><b>Multa:&nbsp;&nbsp;</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for remarcacao in remarcacoes %}
+                                                <tr>
+                                                    <td>{{remarcacao.data_viagem|date:"d/m/y"}}</td>
+                                                    <td>{{remarcacao.num_bilhete}}</td>
+                                                    <td>{{remarcacao.num_voo}}</td>
+                                                    <td>R$ {{remarcacao.valor}}</td>
+                                                    <td>R$ {{remarcacao.tarifa}}</td>
+                                                    <td>R$ {{remarcacao.valor_embarque}}</td>
+                                                    <td>R$ {{remarcacao.taxa_servico}}</td>
+                                                    <td>R$ {{remarcacao.multa}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                        </div>	
+                    </div> 
+				</div>
+			</div>
+		
+			
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load pagination_tags bootstrap_pagination staticfiles %}
+{% load i18n %}
+{% block pagetitle %}
+	Lista de Cotas
+{% endblock pagetitle %}
+
+{% block content %}
+
+   	<div class="card mt-3">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-sm-12">
+					<a href="{% url 'passagem:cota_add'%} " class="btn btn-outline-danger mb-2 float-right" data-toggle="tooltip" title="Cadastrar">
+						   <i class="fas fa-plus fa-xs"></i> Cadastrar
+					   </a>
+				   </div>
+			</div>
+		</div>
+     		{% if cotas %} 
+	     		<div class="table-responsive">
+		      		<table class="table">
+		        		<thead class="thead-light">
+			          		<tr>
+			            		<th scope="col">Exercício</th>
+			            		<th scope="col">Órgão</th>
+                                <th scope="col">Início</th>
+                                <th scope="col">Termino</th>
+			            		<th scope="col">#</th> 
+			            		
+			          		</tr>
+		        		</thead>
+			        	<tbody>
+			        		{% for cota in cota_paginator %}
+			          	  		<tr>
+			          	   			<th scope="row">
+										{{ cota.exercicio }}
+									</th>
+				        			<td>{{ cota.orgao }} </td>
+                                    <td>{{ cota.inicio|date:'d/m/Y' }} </td>
+                                    <td>{{ cota.termino|date:'d/m/Y' }} </td>
+									<td>
+										<a class="btn btn-outline-danger" href="{% url 'passagem:cota_update' cota.id %}" data-toggle="tooltip" title="Editar">
+											<i class="fas fa-pencil-alt"></i>
+										</a>
+									</td>
+									
+			        				
+									
+				          		</tr>
+			        		{% endfor %}
+			        	</tbody>
+		      		</table>
+	      		</div>
+	           	{% include './cota_paginator.html' %}
+      		{% endif %}
+    	</div>
+{% endblock content %}
+
+{% block extrajs %}
+	<script src="{% static 'js/painel/usuario/listagem.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load staticfiles input_error %}
+
+{% block pagetitle %}
+    Cadastro de Agência de Viagem
+{% endblock pagetitle %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-sm-4">
+                            <label for="id_cnpj" class="control-label required">CNPJ</label>
+                            {{agencia_viagem_form.cnpj}}
+                            {% show_input_error agencia_viagem_form.cnpj %}
+                        </div>
+                        <div class="form-group col-sm-8">
+                            <label for="id_nome" class="control-label required">Nome</label>
+                            {{agencia_viagem_form.nome}}
+                            {% show_input_error agencia_viagem_form.nome %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-4">
+                            <label for="id_iata" class="control-label required">Inscrição Estadual</label>
+                            {{agencia_viagem_form.inscricao_estadual}}
+                            {% show_input_error agencia_viagem_form.inscricao_estadual %}
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="id_nome_fantasia" class="control-label required">Nome Fantasia</label>
+                            {{agencia_viagem_form.nome_fantasia}}
+                            {% show_input_error agencia_viagem_form.nome_fantasia %}
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="id_icao" class="control-label required">Contrato</label>
+                            {{agencia_viagem_form.contrato}}
+                            {% show_input_error agencia_viagem_form.contrato %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-2">
+                            <label for="id_site" class="control-label required">Fone</label>
+                            {{agencia_viagem_form.fone}}
+                            {% show_input_error agencia_viagem_form.fone %}
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label for="id_latitude" class="control-label required">Fax</label>
+                            {{agencia_viagem_form.fax}}
+                            {% show_input_error agencia_viagem_form.fax %}
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="id_longitude" class="control-label required">Email</label>
+                            {{agencia_viagem_form.email}}
+                            {% show_input_error agencia_viagem_form.email %}
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="id_longitude" class="control-label required">Siete</label>
+                            {{agencia_viagem_form.homepage}}
+                            {% show_input_error agencia_viagem_form.homepage %}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 mt-2">
+                               <button type="button" class="pull-left btn btn-outline-primary" onclick="location.href='{% url 'passagem:agencias_viagem' %}'">
+                                   <i></i>&nbsp;Voltar
+                               </button>									
+                                <button type="submit" class="btn btn-outline-success float-right">
+                                    <i class="far fa-save"></i>&nbsp;Salvar
+                                </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

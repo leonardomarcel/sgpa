@@ -1,0 +1,29 @@
+{% load menu_util staticfiles %}
+
+<div class="collapse" id="menu">
+	<div class="list-group panel">
+		{% for item, url, img, flag, children in menulist %}
+			<a {% if children %} href="#{{forloop.counter}}" data-toggle="collapse" data-target="#{{forloop.counter}}" aria-expanded="false" aria-controls="{{forloop.counter}}" {% else %} href="{{url}}" {% endif %} class="list-group-item collapsed">
+				<span>
+					<i class="{{ img }} menu-icon"></i>
+					{{ item }} 
+					{% if children %} 
+						<i class="fas fa-angle-down float-right"></i> 
+					{% endif %}
+				</span> 
+			</a>
+			{% if children %}
+			<div class="collapse submenu" aria-labelledby="{{forloop.counter}}" id="{{forloop.counter}}" data-parent="#menu">
+				{% for item, url, img, flag, children2 in children %}
+					<a href="{{ url }}" class="list-group-item collapse" >
+						<i class="{{ img }}"></i> 
+						{{ item }}
+					</a>
+				{% endfor %}	
+			</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+
+
