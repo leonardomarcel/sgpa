@@ -37,7 +37,7 @@ oauthlib==2.1.0
 optional-django==0.1.0
 #pandas==1.0.3 done
 #pexpect==4.8.0 done
-Pillow==6.0.0
+Pillow==7.1.0
 psycopg2==2.7.3.2
 # ptyprocess==0.6.0 done
 pycparser==2.20
