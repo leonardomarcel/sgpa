@@ -1,0 +1,82 @@
+version: '3'
+services:
+
+  db:
+    image: postgres:11-alpine
+    container_name: sgpa-database-develop
+    environment:
+      - POSTGRES_DB=sgpa_db
+      - POSTGRES_USER=SGPA_DB_USER
+      - POSTGRES_PASSWORD=SGPA_DB_PASSWD_TO_CHANGE
+    expose:
+      - '5432'
+    volumes:
+      - ../var/db/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ../data:/var/lib/postgresql/data
+
+  
+
+
+  
+  web:
+    container_name: sgpa-django-develop
+    build: 
+      context: ..
+      dockerfile: docker/develop-Dockerfile 
+    image: sgpa/sgpa-manager:mt
+    environment:
+      - DB_PORT_5432_TCP_HOST=db
+      - DEBUG=True
+      #- XDG_RUNTIME_DIR=./
+      #- RUNLEVEL=3 
+      #- RABBIT_PORT_5672_TCP=rabbitmq:5672
+    depends_on:
+      - db
+      #- rabbitmq
+    expose:
+      - "8003"
+    volumes:
+      - ..:/opt/sgpa/
+      - ../source/static:/opt/sgpa/source/static
+      #- ../media:/opt/sgpa/source/sgpa/media
+    links:
+      - db
+      #- rabbitmq
+      #- localstack
+      #- "connect_server:connserv"
+
+  
+
+  nginx:
+    image: nginx:latest  
+    container_name: sgpa-nginx-develop
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../source/static:/opt/sgpa/source/static
+      #- ../media:/opt/ecotrust-manager/media
+      #- ../var/log:/opt/ecotrust-manager/var/log
+      - ./nginx_docker.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
+      #- connect_server
+    # links:
+    #   - "connect_server:connserv"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-container
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=seu_email@example.com
+      - PGADMIN_DEFAULT_PASSWORD=sua_senha_secreta
+    ports:
+      - '5050:80'
+    depends_on:
+      - db
+
+
+volumes:
+  #rabbitmq_data:
+  sgpa_database:
+  #localstack_data:

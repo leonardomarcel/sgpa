@@ -1,0 +1,30 @@
+
+# Dockerfile_develop - for development purposes only
+
+FROM python:3.7 
+LABEL Name="SGPA" Version="2.1.5"
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+RUN mkdir -p /run/memcached
+
+RUN apt-get update -yq  \
+	&& apt-get install -yq --no-install-recommends apt-utils python3 python3-pip libmagic-dev python3-dev gcc wget wkhtmltopdf memcached \
+	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR /opt/sgpa/
+
+COPY requirements.txt /opt/sgpa/requirements.txt
+COPY develop-docker-entrypoint.sh /opt/sgpa/develop-docker-entrypoint.sh
+RUN chmod +x /opt/sgpa/docker/develop-docker-entrypoint.sh
+RUN ls -l /opt/sgpa/  # Adicione esta linha temporariamente
+RUN pip install -r requirements.txt
+COPY . /opt/sgpa/
+
+ENV TZ America/Sao_Paulo
+
+EXPOSE 8003
+ENTRYPOINT ["/opt/sgpa/docker/develop-docker-entrypoint.sh"]
+CMD ["run"]
